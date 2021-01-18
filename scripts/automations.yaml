@@ -1,1 +1,10 @@
-[]
+- id: rfbridge_demultiplexer
+  alias: 'rfbridge_demultiplexer'
+  initial_state: 'true'
+  trigger:
+  - platform: mqtt
+    topic: tele/voogie_rf_bridge/RESULT
+  action:
+  - service: python_script.rfbridge_demux
+    data_template:
+      payload: '{{trigger.payload_json.RfReceived.Data}}'
