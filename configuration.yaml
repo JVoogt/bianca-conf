@@ -1,4 +1,3 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
   customize: !include scripts/customize.yaml
@@ -18,11 +17,14 @@ http:
   ip_ban_enabled: true
   login_attempts_threshold: 5
 
+
 mqtt:
   broker: 192.168.0.250
 
+
 python_script:      
-  
+
+
 # Example Log file
 logger:
   default: critical
@@ -53,6 +55,11 @@ logger:
     homeassistant.components.glances: fatal
     glances_api: fatal
 
+
+#Samsung Smart TV
+samsungtv:
+
+
 # Switch Components  
 switch:
   - platform: mqtt
@@ -63,6 +70,7 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
+
 
 # Bianry Switches    
 binary_sensor:
@@ -84,11 +92,13 @@ binary_sensor:
     device_class: door
     qos: 1
 
+
 #OneWire Sensors    
 sensor:
   - platform: onewire
     names:
       GENERATED_ID: OfficeTemp
+
 
 # DSC Alarm with ESPHome  
 alarm_control_panel:
