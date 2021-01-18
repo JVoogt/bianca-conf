@@ -1,7 +1,7 @@
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-  customize: !include customize.yaml
+  customize: !include scripts/customize.yaml
 
 # Text to speech
 tts:
@@ -20,8 +20,10 @@ http:
 
 mqtt:
   broker: 192.168.0.250
+
+python_script:      
   
-# Example configuration.yaml entry
+# Example Log file
 logger:
   default: critical
   logs:
@@ -37,6 +39,10 @@ logger:
     # individual log level for this python script
     homeassistant.components.python_script.rfbridge_demux.py: debug
 
+    # Not sure what this is, but it flooded the logs
+    homeassistant.loader: warning
+    homeassistant.setup: warning
+
     # log level for a custom component
     custom_components.my_integration: warning
 
@@ -46,7 +52,8 @@ logger:
     # log level for both 'glances_api' and 'glances' integration
     homeassistant.components.glances: fatal
     glances_api: fatal
-    
+
+# Switch Components  
 switch:
   - platform: mqtt
     unique_id: garage_relay_03
@@ -56,7 +63,8 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    
+
+# Bianry Switches    
 binary_sensor:
   - platform: mqtt
     name: "Garage Door: Back"
@@ -75,12 +83,14 @@ binary_sensor:
     state_topic: "433/GarageDoor1"
     device_class: door
     qos: 1
-    
+
+#OneWire Sensors    
 sensor:
   - platform: onewire
     names:
       GENERATED_ID: OfficeTemp
-  
+
+# DSC Alarm with ESPHome  
 alarm_control_panel:
   - platform: template
     panels:
@@ -104,5 +114,3 @@ alarm_control_panel:
           - service: esphome.dscalarm_alarm_disarm
             data_template:
               code: '{{code}}' 
-
-python_script:      
