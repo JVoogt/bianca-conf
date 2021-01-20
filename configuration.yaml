@@ -104,3 +104,14 @@ notify:
     number: "+27744335842" # the sender number
     recipients: # one or more recipients
       - "+27744335842"
+
+anniversaries:
+  sensors:
+  - name: Carin's Birthday
+    date: !secret Carin_Birthday
+  - name: JP's Birthday
+    date: !secret JP_Birthday
+  - name: Kaylee's Birthday
+    date: !secret Kaylee_Birthday
+  - name: Wedding Anniversary
+    date: !secret Wedding_Anniversary
