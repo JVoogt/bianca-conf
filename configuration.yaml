@@ -115,3 +115,8 @@ anniversaries:
     date: !secret Kaylee_Birthday
   - name: Wedding Anniversary
     date: !secret Wedding_Anniversary
+
+# Spotify
+spotify:
+  client_id: !secret Spotify_Client
+  client_secret: !secret Spotify_Secret 

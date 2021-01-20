@@ -1,0 +1,21 @@
+play_nostalgia:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify_jean_pierre_voogt
+        media_content_id: 'https://open.spotify.com/playlist/578cjij6IG3yi7OQrJ3E2h'
+        media_content_type: playlist
+play_afrikaans:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify_jean_pierre_voogt
+        media_content_id: 'https://open.spotify.com/playlist/5ShniXk78w7vgfJBAlnzhS'
+        media_content_type: playlist
+play_catchy:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify_jean_pierre_voogt
+        media_content_id: 'https://open.spotify.com/playlist/0tJTHB3RyTzJop5CQtZE04'
+        media_content_type: playlist
