@@ -2,14 +2,17 @@
 default_config:
   customize: !include scripts/customize.yaml
 
+
 # Text to speech
 tts:
   - platform: google_translate
+
 
 group: !include scripts/groups.yaml
 automation: !include scripts/automations.yaml
 script: !include scripts/scripts.yaml
 scene: !include scripts/scenes.yaml
+
 
 http:
   ssl_certificate: /ssl/fullchain.pem
@@ -25,39 +28,28 @@ mqtt:
 python_script:      
 
 
+pi_hole:
+  - host: 192.168.0.2
+    name: pihole
+    api_key: !secret pihole_api
+    
+    
 # Example Log file
-logger:
-  default: critical
-  logs:
-    # log level for HA core
-    homeassistant.core: fatal
+logger: !include scripts/logger.yaml
+  
 
-    # log level for MQTT integration
-    homeassistant.components.mqtt: warning
-
-    # log level for all python scripts
-    homeassistant.components.python_script: debug
-
-    # individual log level for this python script
-    homeassistant.components.python_script.rfbridge_demux.py: debug
-
-    # Not sure what this is, but it flooded the logs
-    homeassistant.loader: warning
-    homeassistant.setup: warning
-
-    # log level for a custom component
-    custom_components.my_integration: warning
-
-    # log level for the `aiohttp` Python package
-    aiohttp: error
-
-    # log level for both 'glances_api' and 'glances' integration
-    homeassistant.components.glances: fatal
-    glances_api: fatal
+# TP-Link Router
+#device_tracker:
+#  - platform: tplink_router
+#    host: 192.168.0.1
+#    username: admin
+#    password: !secret tplink_router_password
 
 
-#Samsung Smart TV
+# Samsung Smart TV
 samsungtv:
+  - host: 192.168.0.203
+    name: "SamsungTV"
 
 
 # Switch Components  
@@ -72,7 +64,7 @@ switch:
     payload_off: "OFF"
 
 
-# Bianry Switches    
+# Binary Sensors    
 binary_sensor:
   - platform: mqtt
     name: "Garage Door: Back"
@@ -101,26 +93,14 @@ sensor:
 
 
 # DSC Alarm with ESPHome  
-alarm_control_panel:
-  - platform: template
-    panels:
-      safe_alarm_panel:
-        name: "Alarm Panel"
-        value_template: "{{states('sensor.dscalarm_partition_1_status')}}"
-        code_arm_required: false
-        
-        arm_away:
-          - service: esphome.dscalarm_alarm_arm_away
-                  
-        arm_home:
-          - service: esphome.dscalarm_alarm_arm_home
-          
-        arm_night:
-          - service: esphome.dscalarm_alarm_arm_night
-            data_template:
-              code: '{{code}}' #if you didnt set it in the yaml, then send the code here
-          
-        disarm:
-          - service: esphome.dscalarm_alarm_disarm
-            data_template:
-              code: '{{code}}' 
+alarm_control_panel: !include scripts/alarm.yaml
+
+
+# Signal Notifications
+notify:
+  - name: signal
+    platform: signal_messenger
+    url: "http://192.168.0.250:8080" # the URL where the Signal Messenger REST API is listening
+    number: "+27744335842" # the sender number
+    recipients: # one or more recipients
+      - "+27744335842"

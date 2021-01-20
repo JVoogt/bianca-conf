@@ -33,11 +33,15 @@ logger:
 api:
    password: !secret api_password  
       
-   
 ota:
    password: !secret ota_password
    safe_mode: True
-   
+
+sensor:
+  - platform: wifi_signal
+    name: "$systemName WiFi Signal Sensor"
+    update_interval: 60s
+    
 status_led:
   pin:
     number: D4
