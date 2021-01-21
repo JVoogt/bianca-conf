@@ -2,6 +2,8 @@
 default_config:
   customize: !include scripts/customize.yaml
 
+
+# Dir to custom themes
 frontend:
   themes: !include themes/caule-themes-pack-1/caule-themes-pack-1.yaml
 
@@ -10,12 +12,14 @@ tts:
   - platform: google_translate
 
 
+# Redirects
 group: !include scripts/groups.yaml
 automation: !include scripts/automations.yaml
 script: !include scripts/scripts.yaml
 scene: !include scripts/scenes.yaml
 
 
+# Networking
 http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
@@ -23,13 +27,16 @@ http:
   login_attempts_threshold: 5
 
 
+# Direct to MosquitoMQTT Broker
 mqtt:
   broker: 192.168.0.250
 
 
+# Enable Python Scripts
 python_script:      
 
 
+# External Pi-Hole
 pi_hole:
   - host: 192.168.0.2
     name: pihole
@@ -107,16 +114,22 @@ notify:
     recipients: # one or more recipients
       - "+27744335842"
 
+
+# Important Dates
 anniversaries:
   sensors:
   - name: Carin's Birthday
     date: !secret Carin_Birthday
+
   - name: JP's Birthday
     date: !secret JP_Birthday
+
   - name: Kaylee's Birthday
     date: !secret Kaylee_Birthday
+
   - name: Wedding Anniversary
     date: !secret Wedding_Anniversary
+
 
 # Spotify
 spotify:
