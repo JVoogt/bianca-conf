@@ -1,5 +1,9 @@
 play_nostalgia:
   sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify_jean_pierre_voogt
+        source: WebPlayer
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
