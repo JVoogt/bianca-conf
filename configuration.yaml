@@ -2,6 +2,8 @@
 default_config:
   customize: !include scripts/customize.yaml
 
+frontend:
+  themes: !include themes/caule-themes-pack-1/caule-themes-pack-1.yaml
 
 # Text to speech
 tts:

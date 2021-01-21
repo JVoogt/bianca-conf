@@ -1,4 +1,4 @@
-default: critical
+default: warning
 logs:
   # log level for HA core
   homeassistant.core: fatal
