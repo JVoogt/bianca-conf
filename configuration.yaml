@@ -21,8 +21,8 @@ scene: !include scripts/scenes.yaml
 
 # Networking
 http:
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+  # ssl_certificate: /ssl/fullchain.pem
+  # ssl_key: /ssl/privkey.pem
   ip_ban_enabled: true
   login_attempts_threshold: 5
 
@@ -46,6 +46,12 @@ pi_hole:
 # Example Log file
 logger: !include scripts/logger.yaml
   
+
+# Speedtest
+speedtestdotnet:
+  scan_interval:
+    minutes: 15
+
 
 # TP-Link Router
 #device_tracker:
@@ -71,6 +77,13 @@ switch:
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
+    
+  - platform: mqtt
+    unique_id: 3d_printer
+    name: "3D Printer"
+    state_topic: "stat/voogie_switch_3dprinter/POWER"
+    command_topic: "cmnd/voogie_switch_3dprinter/POWER"
+    qos: 1
 
 
 # Binary Sensors    
@@ -92,6 +105,11 @@ binary_sensor:
     state_topic: "433/GarageDoor1"
     device_class: door
     qos: 1
+    
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error
 
 
 #OneWire Sensors    
@@ -99,6 +117,70 @@ sensor:
   - platform: onewire
     names:
       GENERATED_ID: OfficeTemp
+  - platform: template
+    sensors:
+      octoprint_time_elapsed_format:
+        friendly_name: 'Printing Time Elapsed'
+        value_template: >-
+          {% set etime = states.sensor.printer_name_1_time_elapsed.state | int %}
+          {% set seconds = etime % 60 %}
+          {% set minutes = ((etime % 3600) / 60) | int %}
+          {% set hours = ((etime % 86400) / 3600) | int %}
+          {% set days = (etime / 86400) | int %}
+          {%- if days > 0 -%}
+            {%- if days == 1 -%}
+              1 day
+            {%- else -%}
+              {{ days }} days
+            {%- endif -%}
+            {{ ', ' }}
+          {%- endif -%}
+          {%- if hours > 0 -%}
+            {%- if hours == 1 -%}
+              1 hour
+            {%- else -%}
+              {{ hours }} hours
+            {%- endif -%}
+            {{ ', ' }}
+          {%- endif -%}
+          {%- if minutes > 0 -%}
+            {%- if minutes == 1 -%}
+              1 minute
+            {%- else -%}
+              {{ minutes }} minutes
+            {%- endif -%}
+          {%- endif -%}
+      octoprint_time_remaining_format:
+        friendly_name: 'Printing Time Remaining'
+        value_template: >-
+          {% set rtime = states.sensor.printer_name_1_time_remaining.state | int %}
+          {% set seconds = rtime % 60 %}
+          {% set minutes = ((rtime % 3600) / 60) | int %}
+          {% set hours = ((rtime % 86400) / 3600) | int %}
+          {% set days = (rtime / 86400) | int %}
+          {%- if days > 0 -%}
+            {%- if days == 1 -%}
+              1 day
+            {%- else -%}
+              {{ days }} days
+            {%- endif -%}
+            {{ ', ' }}
+          {%- endif -%}
+          {%- if hours > 0 -%}
+            {%- if hours == 1 -%}
+              1 hour
+            {%- else -%}
+              {{ hours }} hours
+            {%- endif -%}
+            {{ ', ' }}
+          {%- endif -%}
+          {%- if minutes > 0 -%}
+            {%- if minutes == 1 -%}
+              1 minute
+            {%- else -%}
+              {{ minutes }} minutes
+            {%- endif -%}
+          {%- endif -%}
 
 
 # DSC Alarm with ESPHome  
@@ -109,10 +191,29 @@ alarm_control_panel: !include scripts/alarm.yaml
 notify:
   - name: signal
     platform: signal_messenger
-    url: "http://192.168.0.250:8080" # the URL where the Signal Messenger REST API is listening
-    number: "+27744335842" # the sender number
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
     recipients: # one or more recipients
       - "+27744335842"
+      - "+27798928035"
+  - name: signal_jp
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27744335842"
+  - name: signal_carin
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27798928035"
+  - name: signal_vernon
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27827580984"
 
 
 # Important Dates
@@ -135,3 +236,27 @@ anniversaries:
 spotify:
   client_id: !secret Spotify_Client
   client_secret: !secret Spotify_Secret 
+  
+  
+# OctoPrint
+octoprint:
+  host: 192.168.0.205
+  api_key: !secret OctoPrint_api
+  name: PRINTER_NAME_1
+  number_of_tools: 1
+  bed: true
+  sensors:
+    monitored_conditions:
+      - 'Current State'
+      - 'Job Percentage'
+      - 'Temperatures'
+      - 'Time Elapsed'
+      - 'Time Remaining'
+ 
+
+# Camera OctoPrint
+camera:
+  - platform: mjpeg
+    name: OctoPrint
+    still_image_url: http://192.168.0.205/webcam/?action=snapshot
+    mjpeg_url: http://192.168.0.205/webcam/?action=stream
