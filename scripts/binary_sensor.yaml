@@ -1,0 +1,22 @@
+  - platform: mqtt
+    name: "Garage Door: Back"
+    state_topic: "433/GarageDoor3"
+    device_class: door
+    qos: 1
+    
+  - platform: mqtt
+    name: "Garage Door: JP"
+    state_topic: "433/GarageDoor2"
+    device_class: door
+    qos: 1
+    
+  - platform: mqtt
+    name: "Garage Door: Carin"
+    state_topic: "433/GarageDoor1"
+    device_class: door
+    qos: 1
+    
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error

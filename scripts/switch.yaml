@@ -1,0 +1,15 @@
+  - platform: mqtt
+    unique_id: garage_relay_03
+    name: "Garage Door 03"
+    state_topic: "stat/voogie_relay_gd03/POWER"
+    command_topic: "cmnd/voogie_relay_gd03/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    
+  - platform: mqtt
+    unique_id: 3d_printer
+    name: "3D Printer"
+    state_topic: "stat/voogie_switch_3dprinter/POWER"
+    command_topic: "cmnd/voogie_switch_3dprinter/POWER"
+    qos: 1

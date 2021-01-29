@@ -1,0 +1,25 @@
+  - name: signal
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27744335842"
+      - "+27798928035"
+  - name: signal_jp
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27744335842"
+  - name: signal_carin
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27798928035"
+  - name: signal_vernon
+    platform: signal_messenger
+    url: "http://192.168.0.250:8083" # the URL where the Signal Messenger REST API is listening
+    number: "+27798984115" # the sender number
+    recipients: # one or more recipients
+      - "+27827580984"
