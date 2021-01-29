@@ -6,7 +6,7 @@
       octoprint_time_elapsed_format:
         friendly_name: 'Printing Time Elapsed'
         value_template: >-
-          {% set etime = states.sensor.printer_name_1_time_elapsed.state | int %}
+          {% set etime = states.sensor.DuplicatorI3_time_elapsed.state | int %}
           {% set seconds = etime % 60 %}
           {% set minutes = ((etime % 3600) / 60) | int %}
           {% set hours = ((etime % 86400) / 3600) | int %}
@@ -37,7 +37,7 @@
       octoprint_time_remaining_format:
         friendly_name: 'Printing Time Remaining'
         value_template: >-
-          {% set rtime = states.sensor.printer_name_1_time_remaining.state | int %}
+          {% set rtime = states.sensor.DuplicatorI3_time_remaining.state | int %}
           {% set seconds = rtime % 60 %}
           {% set minutes = ((rtime % 3600) / 60) | int %}
           {% set hours = ((rtime % 86400) / 3600) | int %}
