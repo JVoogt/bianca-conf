@@ -13,3 +13,10 @@
     state_topic: "stat/voogie_switch_3dprinter/POWER"
     command_topic: "cmnd/voogie_switch_3dprinter/POWER"
     qos: 1
+
+  - platform: mqtt
+    unique_id: cam_viewer
+    name: "Camera Viewer"
+    state_topic: "stat/voogie_switch_camviewer/POWER"
+    command_topic: "cmnd/voogie_switch_camviewer/POWER"
+    qos: 1

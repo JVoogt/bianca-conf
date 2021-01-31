@@ -3,7 +3,7 @@ play_nostalgia:
     - service: media_player.select_source
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
-        source: WebPlayer
+        source: raspotify
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
@@ -13,10 +13,6 @@ play_nostalgia:
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
         shuffle: true
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.spotify_jean_pierre_voogt
-        source: HomeAssistant
 play_afrikaans:
   sequence:
     - service: media_player.play_media
@@ -31,7 +27,7 @@ play_afrikaans:
     - service: media_player.select_source
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
-        source: HomeAssistant
+        source: raspotify
 play_catchy:
   sequence:
     - service: media_player.play_media
@@ -46,4 +42,4 @@ play_catchy:
     - service: media_player.select_source
       data:
         entity_id: media_player.spotify_jean_pierre_voogt
-        source: HomeAssistant
+        source: raspotify
