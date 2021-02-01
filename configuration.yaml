@@ -53,8 +53,8 @@ speedtestdotnet:
 
 # Samsung Smart TV
 samsungtv:
-  - host: 192.168.0.203
-    name: "SamsungTV"
+  host: 192.168.0.203
+  name: "SamsungTV"
 
 # Important Dates
 anniversaries:
